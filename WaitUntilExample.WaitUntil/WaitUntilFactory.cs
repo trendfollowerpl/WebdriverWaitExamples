@@ -5,26 +5,21 @@ using System;
 
 namespace WaitUntilExample.WaitUntil
 {
-    public sealed class WaitUntilFactory
+    public static class WaitUntilFactory
     {
-        static WebDriverWait Create(IWebDriver webDriver)
+        public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition)
         {
-            return new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            return WaitUntil(webDriver, condition, TimeSpan.FromSeconds(10), null);
         }
-        static WebDriverWait Create(IWebDriver webDriver, TimeSpan timeout)
+        public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout)
         {
-            return new WebDriverWait(webDriver, timeout);
+            return WaitUntil(webDriver, condition, timeout, null);
         }
-        static WebDriverWait Create(IWebDriver webDriver, TimeSpan timeout, params Type[] exceptionTypes)
+        public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout, params Type[] exceptionTypes)
         {
             var waitDriver = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             waitDriver.IgnoreExceptionTypes(exceptionTypes);
-            return waitDriver;
-        }
-
-        public T WaitUntil<T>(WebDriverWait webDriverWait, Func<IWebDriver, T> condition)
-        {
-            return webDriverWait.Until<T>(condition);
+            return waitDriver.Until(condition);
         }
     }
 }
