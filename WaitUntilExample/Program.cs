@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenQA.Selenium.Chrome;
+using System;
 
 namespace WaitUntilExample
 {
@@ -6,7 +7,11 @@ namespace WaitUntilExample
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var driver = new ChromeDriver(".");
+            driver.Navigate().GoToUrl("http://google.com");
+
+            Console.ReadLine();
+            driver.Dispose();
         }
     }
 }
