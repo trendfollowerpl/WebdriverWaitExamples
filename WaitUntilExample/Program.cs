@@ -20,10 +20,7 @@
             try
             {
                 WaitUntilFactory.WaitUntil<bool>(driver,
-                    (d) =>
-                        {
-                            return temperatureElement.Text.Contains("17");
-                        },
+                    (d) => temperatureElement.Text.Contains("17"),
                     TimeSpan.FromSeconds(5),
                     typeof(StaleElementReferenceException)
                     );
