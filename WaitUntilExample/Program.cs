@@ -10,6 +10,7 @@
         static void Main(string[] args)
         {
             var driver = new ChromeDriver(".");
+            driver.Manage().Timeouts().ImplicitWait = default(TimeSpan);
             driver.Navigate().GoToUrl("https://google.pl/maps");
 
             var temperetureFindBy = By.CssSelector("[class*='area-weather-temperature']");
