@@ -4,7 +4,6 @@
     using OpenQA.Selenium.Chrome;
     using System;
     using WaitUntilExample.WaitUntil;
-    using SeleniumExtras.WaitHelpers;
 
     class Program
     {
@@ -13,20 +12,20 @@
             var driver = new ChromeDriver(".");
             driver.Navigate().GoToUrl("https://google.pl/maps");
 
-            var wheatherClassFindBy = By.CssSelector(".section-area-weather");
             var temperetureFindBy = By.CssSelector("[class*='area-weather-temperature']");
 
-            var wheatherElement = WaitUntilFactory.WaitUntil<IWebElement>(driver, ExpectedConditions.ElementExists(wheatherClassFindBy));
-            Console.WriteLine($"wheather element found: {wheatherElement.Size}");
-
-            var temperatureElement = WaitUntilFactory.WaitUntil(driver, ExpectedConditions.ElementIsVisible(temperetureFindBy));
+            var temperatureElement = WaitUntilFactory.WaitUntil<IWebElement>(driver, d => d.FindElement(temperetureFindBy));
 
             try
             {
-                WaitUntilFactory.WaitUntil<bool>(driver, (d) =>
-                {
-                    return temperatureElement.Text.Contains("17");
-                });
+                WaitUntilFactory.WaitUntil<bool>(driver,
+                    (d) =>
+                        {
+                            return temperatureElement.Text.Contains("17");
+                        },
+                    TimeSpan.FromSeconds(5),
+                    typeof(StaleElementReferenceException)
+                    );
 
                 Console.WriteLine("termperature match!!!");
             }
@@ -34,7 +33,7 @@
             {
                 Console.WriteLine($" current temperature {temperatureElement.Text}");
             }
-            
+
 
             Console.ReadLine();
             driver.Dispose();
