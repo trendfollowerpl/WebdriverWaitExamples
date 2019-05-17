@@ -17,7 +17,11 @@ namespace WaitUntilExample.WaitUntil
         }
         public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout, params Type[] exceptionTypes)
         {
-            var waitDriver = new WebDriverWait(webDriver, timeout);
+            var waitDriver = new WebDriverWait(webDriver, timeout)
+            {
+                PollingInterval = TimeSpan.FromMilliseconds(500)
+            };
+
             if (exceptionTypes != null)
             {
                 waitDriver.IgnoreExceptionTypes(exceptionTypes);
