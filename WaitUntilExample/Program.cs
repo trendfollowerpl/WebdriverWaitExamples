@@ -1,4 +1,6 @@
-﻿namespace WaitUntilExample
+﻿using SeleniumExtras.WaitHelpers;
+
+namespace WaitUntilExample
 {
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
@@ -16,6 +18,8 @@
             var temperetureFindBy = By.CssSelector("[class*='area-weather-temperature']");
 
             var temperatureElement = WaitUntilFactory.WaitUntil<IWebElement>(driver, d => d.FindElement(temperetureFindBy));
+            //var temperatureElement =
+            //    WaitUntilFactory.WaitUntil(driver, ExpectedConditions.ElementExists(temperetureFindBy));
 
             try
             {
