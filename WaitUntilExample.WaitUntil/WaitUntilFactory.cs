@@ -10,7 +10,7 @@ namespace WaitUntilExample.WaitUntil
     {
         public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition)
         {
-            return WaitUntil(webDriver, condition, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(500), null);
+            return WaitUntil(webDriver, condition, TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(500), null);
         }
         public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout)
         {
@@ -66,7 +66,7 @@ namespace WaitUntilExample.WaitUntil
             return this;
         }
 
-        public WaitUntilBuilder<T> WithIgnoreExceptionTypes(Type[] exceptionTypes)
+        public WaitUntilBuilder<T> WithIgnoreExceptionTypes(params Type[] exceptionTypes)
         {
             this.exceptionTypes = exceptionTypes;
             return this;
