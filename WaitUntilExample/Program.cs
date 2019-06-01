@@ -26,6 +26,7 @@ namespace WaitUntilExample
                 WaitUntilFactory.WaitUntil<bool>(driver,
                     (d) => temperatureElement.Text.Contains("17"),
                     TimeSpan.FromSeconds(5),
+                    TimeSpan.FromMinutes(500),
                     typeof(StaleElementReferenceException)
                     );
 

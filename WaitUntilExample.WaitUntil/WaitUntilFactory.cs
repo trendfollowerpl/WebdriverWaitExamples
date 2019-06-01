@@ -9,17 +9,17 @@ namespace WaitUntilExample.WaitUntil
     {
         public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition)
         {
-            return WaitUntil(webDriver, condition, TimeSpan.FromSeconds(10), null);
+            return WaitUntil(webDriver, condition, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(500), null);
         }
         public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout)
         {
-            return WaitUntil(webDriver, condition, timeout, null);
+            return WaitUntil(webDriver, condition, timeout, TimeSpan.FromSeconds(500), null);
         }
-        public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout, params Type[] exceptionTypes)
+        public static T WaitUntil<T>(IWebDriver webDriver, Func<IWebDriver, T> condition, TimeSpan timeout, TimeSpan pollingTime, params Type[] exceptionTypes)
         {
             var waitDriver = new WebDriverWait(webDriver, timeout)
             {
-                PollingInterval = TimeSpan.FromMilliseconds(500)
+                PollingInterval = pollingTime
             };
 
             if (exceptionTypes != null)
